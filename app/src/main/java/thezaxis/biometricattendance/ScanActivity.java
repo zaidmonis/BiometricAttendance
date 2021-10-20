@@ -48,37 +48,29 @@ public class ScanActivity extends AppCompatActivity implements MFS100Event {
     }
 
     public void StartSyncCapture() {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    FingerData fingerData = new FingerData();
-                    int ret = mfs100.AutoCapture(fingerData, 10000, false);
-                    if (ret != 0) {
-                        SetTextonuiThread(mfs100.GetErrorMsg(ret));
-                    } else {
-                        final Bitmap bitmap = BitmapFactory.decodeByteArray(fingerData.FingerImage(), 0, fingerData.FingerImage().length);
-                        final Bitmap invertedBitmap = invert(bitmap);
-                        imgFinger.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imgFinger.setImageBitmap(invertedBitmap);
-                                imgFinger.refreshDrawableState();
-                            }
-                        });
-                        Intent returnIntent = new Intent();
-                        returnIntent.putExtra("fingerData", fingerData.FingerImage());
-                        setResult(1, returnIntent);
+        new Thread(() -> {
+            try {
+                FingerData fingerData = new FingerData();
+                int ret = mfs100.AutoCapture(fingerData, 10000, false);
+                if (ret != 0) {
+                    SetTextonuiThread(mfs100.GetErrorMsg(ret));
+                } else {
+                    final Bitmap bitmap = BitmapFactory.decodeByteArray(fingerData.FingerImage(), 0, fingerData.FingerImage().length);
+                    final Bitmap invertedBitmap = invert(bitmap);
+                    imgFinger.post(() -> {
+                        imgFinger.setImageBitmap(invertedBitmap);
+                        imgFinger.refreshDrawableState();
+                    });
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("fingerData", fingerData.FingerImage());
+                    setResult(1, returnIntent);
 
 
-                        SetTextonuiThread("Quality: " + fingerData.Quality() + " NFIQ: " + fingerData.Nfiq());
-                        SetTextonuiThread("ISOTemplate size: " + String.valueOf(fingerData.ISOTemplate().length));
-                        // SetData(fingerData);
-                    }
-                } catch (Exception ex) {
-                    SetTextonuiThread("Error");
+                    SetTextonuiThread("Quality: " + fingerData.Quality() + " NFIQ: " + fingerData.Nfiq());
+                    finish();
                 }
+            } catch (Exception ex) {
+                SetTextonuiThread("Error: " +ex);
             }
         }).start();
     }

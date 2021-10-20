@@ -1,8 +1,6 @@
 package thezaxis.biometricattendance;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +8,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
@@ -18,16 +15,24 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class AddStudentActivity extends AppCompatActivity {
-    EditText idText, nameText, addressText;
+    EditText idText, nameText, addressText, branchText;
     Button saveButton, getFingerprintButton;
     DatabaseReference databaseReference;
     StorageReference storageReference;
     byte[] fingerData;
+    private String currentUser;
+    boolean isNew = true;
+    List<Student> allStudents;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
@@ -41,59 +46,44 @@ public class AddStudentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_student);
+        currentUser = getIntent().getStringExtra("currentUser");
         FirebaseApp.initializeApp(this);
+        getAllStudents();
         prepareLayoutElements();
     }
     private void prepareLayoutElements() {
         idText = findViewById(R.id.edit_id);
         nameText = findViewById(R.id.edit_name);
         addressText = findViewById(R.id.edit_address);
+        branchText = findViewById(R.id.edit_branch);
         saveButton = findViewById(R.id.submit_button);
         getFingerprintButton = findViewById(R.id.fingerprint_button);
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addStudent(nameText.getText().toString(), idText.getText().toString(), addressText.getText().toString());
-            }
+        saveButton.setOnClickListener(view -> {
+            isNew = true;
+            checkIfNew(idText.getText().toString());
+            addStudent(nameText.getText().toString(), idText.getText().toString(),
+                    addressText.getText().toString(), branchText.getText().toString());
         });
-        getFingerprintButton.setOnClickListener(view -> startActivityForResult(new Intent(AddStudentActivity.this, ScanActivity.class), 1));
+        getFingerprintButton.setOnClickListener
+                (view -> startActivityForResult(new Intent
+                        (AddStudentActivity.this, ScanActivity.class), 1));
     }
 
-    private void addStudent(String name, String id, String address) {
+    private void addStudent(String name, String id, String address, String branch) {
         if (name.isEmpty() || id.isEmpty() || address.isEmpty() || fingerData == null || fingerData.length == 0){
             Toast.makeText(AddStudentActivity.this, "Add all Fields", Toast.LENGTH_SHORT).show();
             return;
         }
-        Student student = new Student(id, name, address);
+        Student student = new Student(id, name, address, branch, currentUser);
 
-        String uid = "user4";
+        if (!isNew){
+            Toast.makeText(AddStudentActivity.this, "Student ID already exists", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         databaseReference = FirebaseDatabase.getInstance().getReference("students");
-
-        // databaseReference.setValue(student);
-        /* databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // inside the method of on Data change we are setting
-                // our object class to our database reference.
-                // data base reference will sends data to firebase.
-                databaseReference.setValue(student);
-
-                // after adding this data we are showing toast message.
-                Toast.makeText(AddStudentActivity.this, "data added", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // if the data is not added or it is cancelled then
-                // we are displaying a failure toast message.
-                Toast.makeText(AddStudentActivity.this, "Fail to add data " + error, Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
-
-        databaseReference.setValue(student).addOnSuccessListener(task -> {
+        databaseReference.child(id).setValue(student).addOnSuccessListener(task -> {
             Toast.makeText(AddStudentActivity.this, "Success", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(e -> {
             Toast.makeText(AddStudentActivity.this, "Failed", Toast.LENGTH_SHORT).show();
@@ -102,8 +92,36 @@ public class AddStudentActivity extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference("students/" +student.id);
         storageReference.putBytes(fingerData).addOnSuccessListener(taskSnapshot -> {
             Toast.makeText(AddStudentActivity.this, "Save Image Success", Toast.LENGTH_SHORT).show();
+            finish();
         }).addOnFailureListener(e -> {
             Toast.makeText(AddStudentActivity.this, "Error: "+e, Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void getAllStudents() {
+        databaseReference = FirebaseDatabase.getInstance().getReference("students");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Student> students;
+                GenericTypeIndicator<HashMap<String, Student>> t = new GenericTypeIndicator<HashMap<String, Student>>() {
+                };
+                HashMap<String, Student> hashMap = snapshot.getValue(t);
+                if (hashMap != null) {
+                    allStudents = new ArrayList<>(hashMap.values());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    private void checkIfNew(String id) {
+        for (Student student : allStudents) {
+            if (student.id.equals(id)){
+                isNew = false;
+            }
+        }
     }
 }

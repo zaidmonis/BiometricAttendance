@@ -15,7 +15,6 @@
     <string name="upload">Upload</string>
     <string name="n">n</string>
     <string name="image_finger">image_finger</string>
-    <string name="username">Username</string>
     <string name="dob">DOB</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="name">Name</string>
@@ -75,7 +74,6 @@
     <string name="little_finger">Little Finger</string>
     <string name="none">None</string>
     <string name="fixed_finger">Fixed Finger</string>
-    <string name="password">Password</string>
     <string name="password_admin_omly">Password(Admin)</string>
     <string name="delete">Delete</string>
     <string name="login_btn">Login</string>
@@ -120,4 +118,6 @@
     <string name="enter_name">Enter Name</string>
     <string name="enter_id">Enter Id</string>
     <string name="enter_address">Enter Address</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>

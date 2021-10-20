@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.android.support:recyclerview-v7:25.4.0'
 
 
     testImplementation 'junit:junit:4.+'

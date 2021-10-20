@@ -37,12 +37,22 @@
                 android:inputType="textPostalAddress"
                 android:layout_below="@id/edit_id"
                 android:id="@+id/edit_address"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Enter Branch"
+                android:inputType="textPostalAddress"
+                android:layout_below="@id/edit_address"
+                android:id="@+id/edit_branch"
+                />
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fingerprint_button"
                 android:text="@string/get_fingerprint"
-                android:layout_below="@id/edit_address"
+                android:layout_below="@id/edit_branch"
                 android:layout_marginTop="10dp"
                 />
             <Button
