@@ -1,0 +1,123 @@
+<resources>
+    <string name="app_name">Biometric Attendance</string>
+    <string name="app_title">MegaMind</string>
+    <string name="Init">INIT</string>
+    <string name="UnInit">UNINIT</string>
+    <string name="Start">START</string>
+    <string name="Stop">STOP</string>
+    <string name="ExtractISO">ISO(FMR)</string>
+    <string name="ExtractWSQ">WSQ</string>
+    <string name="MatchISO">MATCH ISO(FMR)</string>
+    <string name="ClearLog">CLEAR LOG</string>
+    <string name="SyncCapture">AUTO CAPTURE</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="upload">Upload</string>
+    <string name="n">n</string>
+    <string name="image_finger">image_finger</string>
+    <string name="username">Username</string>
+    <string name="dob">DOB</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="name">Name</string>
+    <string name="submit">Submit</string>
+    <string name="user_id">User ID</string>
+    <string name="userid">Userid</string>
+    <string name="verify_mode">Verify mode</string>
+    <string name="user_type">User type</string>
+    <string name="takepic">takepic</string>
+    <string name="tap_the_box_to_open_camera">Browse…</string>
+    <string name="image">Image</string>
+    <string name="admin">admin</string>
+    <string name="login_admin_only">Login - Admin (only)</string>
+    <string name="preferences">Preferences</string>
+
+    <string-array name="options_1">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="options_2">
+        <item>Enable</item>
+        <item>Disable</item>
+    </string-array>
+
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="do_you_want_to_export_import_db">Do you want to Import/Export Db ?</string>
+    <string name="maintenance">Maintenance !!</string>
+    <string name="import_db">Import Db</string>
+    <string name="export_db">Export Db</string>
+    <string name="ok">OK !!</string>
+    <string name="login">Login:-</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_settings_2">settings_2</string>
+    <string name="verified_user_details">Verified User</string>
+    <string name="user_pic">user-pic</string>
+    <string name="id">User-ID</string>
+    <string name="hand">Hand</string>
+    <string name="search">Search by Id or Name…</string>
+    <string name="user_id_ext">User-ID</string>
+    <string name="name_ext">NAME</string>
+    <string name="u_type">U-Type</string>
+    <string name="v_type">V-Type</string>
+    <string name="date_of_birth_ext">Date-of-birth</string>
+    <string name="f_cnt">CNT</string>
+    <string name="select_finger_of_your_choice">Select finger of your choice:-</string>
+    <string name="left_hand">Left hand</string>
+    <string name="right_hand">Right Hand</string>
+    <string name="thumb_finger">Thumb Finger</string>
+    <string name="index_finger">Index Finger</string>
+    <string name="middle_finger">Middle Finger</string>
+    <string name="ring_finger">Ring Finger</string>
+    <string name="little_finger">Little Finger</string>
+    <string name="none">None</string>
+    <string name="fixed_finger">Fixed Finger</string>
+    <string name="password">Password</string>
+    <string name="password_admin_omly">Password(Admin)</string>
+    <string name="delete">Delete</string>
+    <string name="login_btn">Login</string>
+    <string name="admin_log">Admin</string>
+    <string name="user_authenticated">User Authenticated</string>
+    <string name="_24_7_support">24*7 Support</string>
+    <string name="contact_support_megamindindia_com">Contact : support@megamindindia.com</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="user">User</string>
+    <string name="settings">Settings</string>
+    <string name="report">Report</string>
+    <string name="maintenance_main">Maintenance</string>
+    <string name="select_your_source">select image source:-</string>
+    <string name="import_from_gallery">Import from gallery</string>
+    <string name="import_from_camera">Import from Camera</string>
+    <string name="preview">Preview</string>
+    <string name="enter_details">Enter details</string>
+    <string name="finger_detail">Finger Detail:-</string>
+    <string name="not_res">"Not Registered !!!"</string>
+    <string name="scanner_title">"PUT FINGER"</string>
+    <string name="title_activity_report">Report</string>
+    <string name="action_settings">Settings</string>
+    <string name="summary">Device info.</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="invalid">INVALID</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="employee_validity">Employee validity</string>
+    <string name="punch_image">Punch-Image</string>
+    <string name="birthday_wish">Birthday wish</string>
+    <string name="access_control">Access control</string>
+    <string name="login_log">Login Log</string>
+    <string name="action_log">Action Log</string>
+    <string name="hands_on_registration">Hands on registration</string>
+    <string name="gps_loaction">GPS Loaction</string>
+    <string name="view_students">View Students</string>
+    <string name="add_student">Add Student</string>
+    <string name="get_fingerprint">Get Fingerprint</string>
+    <string name="save_student">Save Student</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_id">Enter Id</string>
+    <string name="enter_address">Enter Address</string>
+</resources>
